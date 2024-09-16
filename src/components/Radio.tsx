@@ -22,9 +22,9 @@ const Radio: React.FC<Props> = ({ field, item, className, error }) => {
               <input
                 {...field}
                 type={item.type}
-                id={`${item.name}-${option.name}`}
-                value={option.name}
-                checked={field.value === option.name}
+                id={`${item.name}-${option.value}`}
+                value={option.value}
+                checked={field.value === option.value}
                 className={`h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500 ${className}`}
               />
             </div>

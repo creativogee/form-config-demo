@@ -10,11 +10,13 @@ type LabelProps = {
 const Label: React.FC<LabelProps> = ({ item, className, option }) => {
   return (
     <label
-      htmlFor={option ? `${item.name}-${option.name}` : item.name}
-      className={`block text-sm ${className}`}
+      htmlFor={option ? `${item.name}-${option.value}` : item.name}
+      className={`block text-sm text-gray-700 font-[500] ${className}`}
     >
       {option ? option.label : item.label}
-      {!option && item.validation?.required && <span className='text-red-500'> *</span>}
+      {!option && item.validation?.required && item.label && (
+        <span className='text-red-500'> *</span>
+      )}
     </label>
   );
 };

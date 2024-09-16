@@ -17,7 +17,7 @@ const Select: React.FC<Props> = ({ field, error, item, className, options = [] }
       <select {...field} className={className}>
         <option value=''>Select {item.label}</option>
         {options?.map((option: Option, optionIndex: number) => (
-          <option key={optionIndex} value={option.name}>
+          <option key={optionIndex} value={option.value}>
             {option.label}
           </option>
         ))}

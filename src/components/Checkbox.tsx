@@ -1,15 +1,24 @@
 import { Item } from '@crudmates/form-config';
 import Label from './Label';
+import { cls } from './util';
 
 type Props = {
   field: any;
   error: any;
   item: Item;
   tabIndex?: number;
+  className?: string;
   changeGroup?: (value: string) => void;
 };
 
-const Checkbox: React.FC<Props> = ({ field, error, item, changeGroup, tabIndex }) => {
+const Checkbox: React.FC<Props> = ({
+  field,
+  error,
+  item,
+  changeGroup,
+  tabIndex,
+  className = '',
+}) => {
   const handleChange = () => {
     if (changeGroup) {
       changeGroup(item.name);
@@ -20,14 +29,14 @@ const Checkbox: React.FC<Props> = ({ field, error, item, changeGroup, tabIndex }
 
   return (
     <div className='mb-4'>
-      <div className='flex items-center gap-x-2'>
+      <div className={cls('flex items-center gap-x-2', className)}>
         <Label item={item} />
 
         <input
           {...field}
-          type='checkbox'
+          type={item.type}
           disabled={item.disabled}
-          checked={item?.default ?? field.value}
+          checked={item?.default ?? field.value.includes(item.name)}
           className={`h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 ${
             error ? 'border-red-500 focus:ring-red-500' : ''
           }`}

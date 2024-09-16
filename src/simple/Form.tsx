@@ -1,4 +1,4 @@
-import { stage } from '@crudmates/form-config';
+import { evaluateCondition, stage } from '@crudmates/form-config';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '../components/Button';
@@ -10,13 +10,13 @@ import form from './config';
 import { schema } from './schema';
 
 const Form = () => {
-  const { control, handleSubmit, formState } = useForm({
+  const { control, handleSubmit, watch } = useForm({
     mode: 'onBlur',
     defaultValues: stage(form),
     resolver: zodResolver(schema),
   });
 
-  console.log(formState.errors);
+  const accountType = watch('accountType');
 
   const onSubmit = (data: any) => {
     console.log('SUBMITTED DATA: ', data);
@@ -33,6 +33,13 @@ const Form = () => {
         <div key={sectionIndex} className='mb-6'>
           <h2 className='text-lg font-semibold mb-4'>{section.label}</h2>
           {section.items.map((item, itemIndex) => {
+            if (
+              item.conditions?.show &&
+              !evaluateCondition(item.conditions?.show, { accountType })
+            ) {
+              return null;
+            }
+
             return (
               <Controller
                 key={itemIndex}

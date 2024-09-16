@@ -45,10 +45,10 @@ const registrationForm: Config = {
           placeholder: 'Select your country',
           dataSource: 'options',
           options: [
-            { name: 'ng', label: 'Nigeria' },
-            { name: 'us', label: 'United States' },
-            { name: 'ca', label: 'Canada' },
-            { name: 'mx', label: 'Mexico' },
+            { label: 'Nigeria', value: 'NG' },
+            { label: 'United States', value: 'US' },
+            { label: 'Canada', value: 'CA' },
+            { label: 'Mexico', value: 'MX' },
           ],
           validation: {
             required: true,
@@ -87,8 +87,8 @@ const registrationForm: Config = {
           label: 'Account Type',
           type: 'select',
           options: [
-            { name: 'personal', label: 'Personal' },
-            { name: 'business', label: 'Business' },
+            { label: 'Personal', value: 'personal' },
+            { label: 'Business', value: 'business' },
           ],
           validation: {
             required: true,
@@ -103,10 +103,12 @@ const registrationForm: Config = {
             minLength: 2,
             maxLength: 100,
           },
-          condition: {
-            field: 'accountType',
-            operator: 'EQUAL',
-            value: 'business',
+          conditions: {
+            show: {
+              field: 'accountType',
+              operator: 'EQUAL',
+              value: 'business',
+            },
           },
         },
         {
